@@ -1,13 +1,8 @@
 from robocorp import browser
 from robocorp.tasks import task
-from RPA.Excel.Files import Files as Excel
+from RPA.Robocorp.WorkItems import WorkItems
 
-from pathlib import Path
-import os
-import requests
-from RPA.Browser.Selenium import Selenium
-
-from src.application.services.LATimes import LATimesAutomation
+from application.services.LATimesAutomation import LATimesAutomation
 
 @task
 def main():
@@ -16,9 +11,14 @@ def main():
     
     Downloads the source data excel and uses Playwright to solve rpachallenge.com from challenge
     """
+    workitem = WorkItems()
+    
+    workitem.get_input_work_item()
     
     automation = LATimesAutomation()
     automation.open()
-    automation.search("Champions League2")
+    
+    for item in workitem.work_items:
+        automation.search("Champions League2")
     
     print('Done')
