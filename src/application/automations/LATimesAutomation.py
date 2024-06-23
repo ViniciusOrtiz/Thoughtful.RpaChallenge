@@ -144,7 +144,6 @@ class LATimesAutomation():
         """
         
         os.makedirs(output_dir, exist_ok=True)
-        [os.remove(f'{output_dir}\{f}') for f in os.listdir(output_dir)]
         
         for n in news:
             image_url = n.image_url
@@ -174,7 +173,6 @@ class LATimesAutomation():
         
         file_dir = os.path.dirname(file)
         os.makedirs(file_dir, exist_ok=True)
-        os.remove(file) if os.path.exists(file) else None
         
         news_dto = []
         

@@ -4,7 +4,7 @@
       "search": "Lionel Messi",
       "topic": "Soccer",
       "months": 4,
-      "output_images": "output/LionelMessi",
+      "output_images": "output",
       "output_excel": "output/LionelMessi.xlsx"
     }
   },
