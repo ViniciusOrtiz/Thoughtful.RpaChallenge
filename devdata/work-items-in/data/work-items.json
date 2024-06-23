@@ -1,7 +1,9 @@
 [
   {
-    "search": "Champions League",
-    "topic": "Soccer",
-    "months": 3
+    "payload": {
+      "search": "Champions League",
+      "topic": "Soccer",
+      "months": 3
+    }
   }
 ]
