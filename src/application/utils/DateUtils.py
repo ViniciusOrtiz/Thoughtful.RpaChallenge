@@ -21,7 +21,7 @@ class DateUtils():
     def define_month(months: int):
         """
         Subtracts a given number of months from the current date
-        and returns the first day of the resulting month.
+        and returns the first day and hour of the resulting month. 
 
         Args:
             months (int): Number of months to subtract
