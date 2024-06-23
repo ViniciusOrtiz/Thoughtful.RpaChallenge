@@ -1,9 +1,30 @@
 [
   {
     "payload": {
-      "search": "Champions League",
+      "search": "Lionel Messi",
       "topic": "Soccer",
-      "months": 3
+      "months": 4,
+      "output_images": "output/LionelMessi",
+      "output_excel": "output/LionelMessi.xlsx"
+    }
+  },
+  {
+    "payload": {
+      "search": "Dollar value",
+      "topic": "Politics",
+      "months": 2,
+      "output_images": "output/DollarValueImages",
+      "output_excel": "output/Dollar.xlsx"
+    }
+  },
+  {
+    "payload": {
+      "search": "World Cup",
+      "topic": "Soccer",
+      "months": 3,
+      "output_images": "output/WorldCupImages",
+      "output_excel": "output/WorldCup.xlsx"
     }
   }
+  
 ]

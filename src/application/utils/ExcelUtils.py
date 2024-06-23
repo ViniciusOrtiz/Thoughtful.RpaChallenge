@@ -1,23 +1,21 @@
-# import pandas as pd
+import pandas as pd
 
 class ExcelUtils():
     
     @staticmethod
-    def dict_to_excel(data: dict, path: str, headers: list[str] = None):
+    def dict_to_excel(data: list[dict], path: str, headers: list[str] = None):
         """
-        Save a model to an Excel file
-
+        Writes a list of dictionaries to an excel file
+        
         Args:
-            model (pandas.DataFrame): Model to save
-            path (str): Path to save the model
+            data (list[dict]): List of dictionaries
+            path (str): File path
+            headers (list[str]): Headers for the excel file
         """
         
-        # if not isinstance(data, dict):
-        #     raise TypeError("Parameter 'data' must be a dictionary.")
+        df = pd.DataFrame(data)
         
-        # df = pd.DataFrame(data)
-        
-        # if(headers is not None):
-        #     df.columns = headers
+        if(headers is not None):
+            df.columns = headers
             
-        # df.to_excel(path, index=False)
+        df.to_excel(path, index=False)
