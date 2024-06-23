@@ -2,7 +2,7 @@ from src.application.exceptions.ItemError import ItemError
 
 
 class Item():
-    def __init__(self, search: str, topic: str, months: int) -> None:
+    def __init__(self, search: str, topic: str, months: int, file_name: str) -> None:
         """
         Domain class for an Item and validations
 
@@ -15,23 +15,30 @@ class Item():
             ItemError: Some value is invalid
         """
         if(not isinstance(search, str)):
-            raise ItemError('Search must be a string')
+            raise ItemError('search must be a string')
         
         if(not isinstance(topic, str)):
-            raise ItemError('Topic must be a string')
+            raise ItemError('topic must be a string')
         
         if(not isinstance(months, int)):
-            raise ItemError('Months must be an integer')
+            raise ItemError('months must be an integer')
+        
+        if(not isinstance(file_name, str)):
+            raise ItemError('file_name must be a string')
         
         if(not search):
-            raise ItemError('Search cannot be empty')
+            raise ItemError('search cannot be empty')
         
         if(not topic):
-            raise ItemError('Topic cannot be empty')
+            raise ItemError('topic cannot be empty')
         
         if(months < 1):
-            raise ItemError('Months must be greater than 0')
+            raise ItemError('months must be greater than 0')
+        
+        if(not file_name):
+            raise ItemError('file_name cannot be empty')
         
         self.search = search
         self.topic = topic
         self.months = months
+        self.file_name = file_name

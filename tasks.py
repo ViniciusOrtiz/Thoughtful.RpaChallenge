@@ -35,14 +35,16 @@ def main():
             
             logging.info(f"Processing payload: {payload}")
             
-            payload_item = Item(search=payload["search"], topic=payload["topic"], months=int(payload["months"]))
+            payload_item = Item(
+                search=payload["search"], topic=payload["topic"], 
+                months=int(payload["months"]), file_name=payload['output.excel'])
             
             automation.search(search_term=payload_item.search)
             automation.select_topic(topic=payload_item.topic)
             automation.sort_by(value="Newest")
             news = automation.get_data(date_until=DateUtils.define_month(months=payload_item.months))
             automation.download_news_image(news=news, output_dir=OUTPUT_DIR)
-            automation.to_excel(file=f"{OUTPUT_DIR}/{payload['output.excel']}", data=news, search=payload_item.search)
+            automation.to_excel(file=f"{OUTPUT_DIR}/{payload_item.file_name}", data=news, search=payload_item.search)
             
             logging.info(f"Process finished for search: {payload_item.search}")
             
