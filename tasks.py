@@ -49,11 +49,11 @@ def main():
         except CustomError as e:
             stacktrace = traceback.format_exc()
             log.exception(f'Error: {str(stacktrace)}')
-            item.fail(code=e.error_code, message=str(e))
+            item.fail(code=e.error_code, message=str(e), exception_type=str(type(e)))
             
         except Exception as e:
             stacktrace = traceback.format_exc()
             log.exception(f'Error: {str(stacktrace)}')
-            item.fail(code="UNEXPECTED_ERROR", message=str(e))
+            item.fail(code="UNEXPECTED_ERROR", message=str(e), exception_type=str(type(e)))
             
     
