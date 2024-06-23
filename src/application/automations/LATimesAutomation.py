@@ -26,7 +26,7 @@ class LATimesAutomation():
         """
         
         log.info(f"Opening LA Times website: {self._base_url}")
-        self._browser.open_available_browser(url=self._base_url, headless=True)
+        self._browser.open_available_browser(url=self._base_url, headless=True, browser_selection='chromium')
         
     def navigate_home(self):
         """

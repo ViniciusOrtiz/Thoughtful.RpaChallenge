@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+import traceback
+from robocorp import browser
 
 from robocorp import log
 from robocorp.tasks import task
@@ -25,7 +27,7 @@ def main():
     """
     
     log.info('Starting process')
-   
+    
     automation = LATimesAutomation()
     automation.open()
     
@@ -45,11 +47,13 @@ def main():
             log.info(f'Process finished for search: {payload_item.search}')
             
         except CustomError as e:
-            log.exception(f'Error: {str(e)}')
+            stacktrace = traceback.format_exc()
+            log.exception(f'Error: {str(stacktrace)}')
             item.fail(code=e.error_code, message=str(e))
             
         except Exception as e:
-            log.exception(f'Error: {str(e)}')
+            stacktrace = traceback.format_exc()
+            log.exception(f'Error: {str(stacktrace)}')
             item.fail(code="UNEXPECTED_ERROR", message=str(e))
             
     
