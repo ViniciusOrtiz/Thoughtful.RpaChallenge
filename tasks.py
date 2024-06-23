@@ -1,7 +1,7 @@
+import logging
 import os
 from pathlib import Path
 import traceback
-from robocorp import browser
 
 from robocorp import log
 from robocorp.tasks import task
@@ -9,14 +9,13 @@ from robocorp import workitems
 
 from src.application.automations.LATimesAutomation import LATimesAutomation
 from src.application.exceptions.CustomError import CustomError
-from src.application.exceptions.TopicNotFoundError import TopicNotFoundError
 from src.domain.Item import Item
 from src.application.utils.DateUtils import DateUtils
-from src.application.exceptions.ItemError import ItemError
 
 OUTPUT_DIR = Path(os.environ.get('ROBOT_ARTIFACTS'))
 OUTPUT_FILE_XLSX = f'{OUTPUT_DIR}/output.xlsx'
 OUTPUT_IMAGE_DIR = f'{OUTPUT_DIR}/images'
+logging.basicConfig(level=logging.INFO)
 
 @task
 def main():
@@ -26,7 +25,7 @@ def main():
     Downloads the source data excel and uses Playwright to solve rpachallenge.com from challenge
     """
     
-    log.info('Starting process')
+    logging.info('Starting process')
     
     automation = LATimesAutomation()
     automation.open()
@@ -44,16 +43,16 @@ def main():
             automation.download_news_image(news=news, output_dir=payload['output_images'])
             automation.to_excel(file=payload['output_excel'], data=news, search=payload_item.search)
             
-            log.info(f'Process finished for search: {payload_item.search}')
+            logging.info(f'Process finished for search: {payload_item.search}')
             
         except CustomError as e:
             stacktrace = traceback.format_exc()
-            log.exception(f'Error: {str(stacktrace)}')
+            logging.exception(f'Error: {str(stacktrace)}')
             item.fail(code=e.error_code, message=str(e), exception_type=str(type(e)))
             
         except Exception as e:
             stacktrace = traceback.format_exc()
-            log.exception(f'Error: {str(stacktrace)}')
+            logging.exception(f'Error: {str(stacktrace)}')
             item.fail(code="UNEXPECTED_ERROR", message=str(e), exception_type=str(type(e)))
             
     

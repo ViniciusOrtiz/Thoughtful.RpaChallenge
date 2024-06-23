@@ -1,4 +1,5 @@
 import datetime
+import logging
 import os
 from pathlib import Path
 import urllib.parse
@@ -25,15 +26,15 @@ class LATimesAutomation():
         Opens the LA Times website
         """
         
-        log.info(f"Opening LA Times website: {self._base_url}")
-        self._browser.open_available_browser(url=self._base_url, headless=True, browser_selection='chromium')
+        logging.info(f"Opening LA Times website: {self._base_url}")
+        self._browser.open_available_browser(url=self._base_url, headless=False)
         
     def navigate_home(self):
         """
         Navigates to the home page
         """
         
-        log.info(f"Navigating to home page")
+        logging.info(f"Navigating to home page")
         self._browser.go_to(url=self._base_url)
         
     def search(self, search_term: str):
@@ -44,7 +45,7 @@ class LATimesAutomation():
             search_term (str): Term to be searched
         """
         
-        log.info(f"Searching for: {search_term}")
+        logging.info(f"Searching for: {search_term}")
         selector_search_input = "//input[@placeholder='Please enter search term']"
         selector_search_button = "//div[contains(@class, 'search-results-module-query')]/button[span[text()='Search']]"
         
@@ -61,7 +62,7 @@ class LATimesAutomation():
             topic (str): Topic to be selected
         """
         
-        log.info(f"Selecting topic: {topic}")
+        logging.info(f"Selecting topic: {topic}")
         selector_topic_locator = f"//div/label[span[text()='{topic}']]/input"
         self._browser.wait_until_element_is_enabled(locator=selector_topic_locator, timeout=5)
         self._browser.set_focus_to_element(locator=selector_topic_locator)
@@ -73,7 +74,7 @@ class LATimesAutomation():
         Sorts the search results by newest
         """
         
-        log.info(f"Sorting by newest")
+        logging.info(f"Sorting by newest")
         selector_sort_by = "//label[span[text()='Sort by']]/select"
         self._browser.wait_until_element_is_enabled(locator=selector_sort_by, timeout=5)
         self._browser.select_from_list_by_label(selector_sort_by, (value))
@@ -95,7 +96,7 @@ class LATimesAutomation():
         selector_result_timestamp = ".//p[contains(@class, 'promo-timestamp')]"
         selector_image = ".//img[@class='image']"
         
-        log.info(f"Getting data until: {date_until}")
+        logging.info(f"Getting data until: {date_until}")
         
         has_news = True
         
@@ -121,7 +122,7 @@ class LATimesAutomation():
                 
                 date = DateUtils.timestamp_to_datetime(timestamp=timestamp_seconds)
                 if date < date_until:
-                    log.info(f"Date is before the limit, stopping search")
+                    logging.info(f"Date is before the limit, stopping search")
                     has_news = False
                     break
                 
@@ -147,7 +148,7 @@ class LATimesAutomation():
         
         for n in news:
             image_url = n.image_url
-            log.info(f"Downloading image: {image_url}")
+            logging.info(f"Downloading image: {image_url}")
             
             response = requests.get(image_url)
             response.raise_for_status()
@@ -158,7 +159,7 @@ class LATimesAutomation():
             with open(local_file, 'wb') as f:
                 f.write(response.content)
                 
-            log.info(f"Image downloaded to: {local_file}")
+            logging.info(f"Image downloaded to: {local_file}")
         
     def to_excel(self, file: str, data: list[News], search: str):
         """
@@ -169,7 +170,7 @@ class LATimesAutomation():
             data (list[News]): List of news
         """
         
-        log.info(f"Writing data to excel file: {file}")
+        logging.info(f"Writing data to excel file: {file}")
         
         file_dir = os.path.dirname(file)
         os.makedirs(file_dir, exist_ok=True)
@@ -211,9 +212,9 @@ class LATimesAutomation():
         selector_loading_icon = "//div[contains(@class, 'loading-icon')]"
         
         try:
-            log.info(f'Waiting for loading icon')
+            logging.info(f'Waiting for loading icon')
             self._browser.wait_until_element_is_visible(locator=selector_loading_icon, error="Loading icon not visible", timeout=timeout)
             self._browser.wait_until_element_is_not_visible(locator=selector_loading_icon)
         except:
-            log.info(f'Loading icon not found')
+            logging.info(f'Loading icon not found')
         
