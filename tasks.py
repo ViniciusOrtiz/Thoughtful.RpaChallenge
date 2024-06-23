@@ -34,6 +34,9 @@ def main():
         try:
             automation.navigate_home()
             payload = item.payload
+            
+            logging.info(f'Processing payload: {payload}')
+            
             payload_item = Item(search=payload['search'], topic=payload['topic'], months=int(payload['months']))
             
             automation.search(search_term=payload_item.search)
