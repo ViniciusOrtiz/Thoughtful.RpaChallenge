@@ -4,27 +4,7 @@
       "search": "Lionel Messi",
       "topic": "Soccer",
       "months": 4,
-      "output_images": "output",
-      "output_excel": "output/LionelMessi.xlsx"
-    }
-  },
-  {
-    "payload": {
-      "search": "Dollar value",
-      "topic": "Politics",
-      "months": 2,
-      "output_images": "output/DollarValueImages",
-      "output_excel": "output/Dollar.xlsx"
-    }
-  },
-  {
-    "payload": {
-      "search": "World Cup",
-      "topic": "Soccer",
-      "months": 3,
-      "output_images": "output/WorldCupImages",
-      "output_excel": "output/WorldCup.xlsx"
+      "output.excel": "LionelMessi.xlsx"
     }
   }
-  
 ]

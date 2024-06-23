@@ -7,7 +7,6 @@ import requests
 
 from RPA.Browser.Selenium import Selenium, By
 from robocorp import storage
-from robocorp import log
 
 from src.application.utils.ExcelUtils import ExcelUtils
 from src.application.utils.StringUtils import StringUtils
