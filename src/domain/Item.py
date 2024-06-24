@@ -14,6 +14,7 @@ class Item():
         Raises:
             ItemError: Some value is invalid
         """
+        
         if(not isinstance(search, str)):
             raise ItemError('search must be a string')
         

@@ -32,12 +32,13 @@ def main():
         try:
             automation.navigate_home()
             payload = item.payload
+            output_excel = payload['output.excel'] if 'output.excel' in payload else 'output.xlsx'
             
             logging.info(f"Processing payload: {payload}")
             
             payload_item = Item(
                 search=payload["search"], topic=payload["topic"], 
-                months=int(payload["months"]), file_name=payload['output.excel'])
+                months=int(payload["months"]), file_name=output_excel)
             
             automation.search(search_term=payload_item.search)
             automation.select_topic(topic=payload_item.topic)
