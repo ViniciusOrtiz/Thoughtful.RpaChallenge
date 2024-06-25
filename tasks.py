@@ -63,4 +63,4 @@ def main():
             automation.close()
             automation.open()
             
-    
+    automation.close()
