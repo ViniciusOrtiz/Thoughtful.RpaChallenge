@@ -59,4 +59,8 @@ def main():
             logging.exception(f"Error: {str(stacktrace)}")
             item.fail(code="UNEXPECTED_ERROR", message=str(e), exception_type=str(type(e)))
             
+            #Restart the browser if an error occurs
+            automation.close()
+            automation.open()
+            
     
